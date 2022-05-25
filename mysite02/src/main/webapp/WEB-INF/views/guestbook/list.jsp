@@ -46,7 +46,13 @@
 							</tr>
 							<tr>
 								<td colspan=4>
-								<%=vo.getMessage()%>	
+								<% 
+									String message =vo.getMessage().replaceAll("\n", "<br/>");
+									message.replaceAll("<","&lt;");
+									message.replaceAll(">","&gt;");
+									//message.replaceAll("\n", "<br/>");
+								%>
+								<%=message%>	
 								</td>
 							</tr>
 						</table>
