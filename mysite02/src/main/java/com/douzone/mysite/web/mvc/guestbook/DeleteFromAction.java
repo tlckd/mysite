@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.WebUtil;
 
-public class IndexAction implements Action {
+public class DeleteFromAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		WebUtil.forward(request,response,"guestbook/list");
-
+		WebUtil.forward(request,response,"guestbook/deleteform");
+		
 	}
 
 }

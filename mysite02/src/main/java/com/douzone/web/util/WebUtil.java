@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 public class WebUtil {
 
 	public static void forward(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views"+path+".jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/"+path+".jsp").forward(request, response);
 		
 	}
 

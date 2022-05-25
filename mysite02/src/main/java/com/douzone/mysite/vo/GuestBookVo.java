@@ -8,7 +8,7 @@ public class GuestBookVo {
 	private String name;
 	private String password; 
 	private String message;
-	private Date regDate;
+	private String regDate;
 	
 	public long getNo() {
 		return no;
@@ -34,10 +34,10 @@ public class GuestBookVo {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	
