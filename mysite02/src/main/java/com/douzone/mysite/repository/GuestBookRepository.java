@@ -22,7 +22,7 @@ public class GuestBookRepository {
 		PreparedStatement pstmt = null;
 		
 		try {
-			connection = getConnection();
+			connection = new MyConnection().getConnection();
 			
 			String sql ="insert into guestbook values (null,?,?,?,now());";
 			pstmt = connection.prepareStatement(sql);
@@ -58,7 +58,7 @@ public class GuestBookRepository {
 		PreparedStatement pstmt = null;
 		
 		try {
-			connection = getConnection();
+			connection = new MyConnection().getConnection();
 			
 			String sql ="delete from guestbook where no=? and password=?;";
 			pstmt = connection.prepareStatement(sql);
@@ -94,7 +94,7 @@ public class GuestBookRepository {
 		ResultSet rs = null;
 		
 		try {
-			connection = getConnection();
+			connection = new MyConnection().getConnection();
 			
 			//3. SQL 준비
 			String sql ="select no,name,password,message,date_format(reg_date, '%Y-%m-%d %H:%i:%s') from guestbook order by no desc;";
@@ -145,19 +145,19 @@ public class GuestBookRepository {
 	
 	
 	
-	private Connection getConnection() throws SQLException {
-		Connection connection = null;
-		
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mysql://192.168.10.33:3306/webdb?charset=utf8";
-			connection = DriverManager.getConnection(url, "webdb", "webdb");
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
-		}
-		
-		return connection;
-	}	
+//	private Connection getConnection() throws SQLException {
+//		Connection connection = null;
+//		
+//		try {
+//			Class.forName("org.mariadb.jdbc.Driver");
+//			String url = "jdbc:mysql://192.168.35.153:3306/webdb?charset=utf8";
+//			connection = DriverManager.getConnection(url, "webdb", "webdb");
+//		} catch (ClassNotFoundException e) {
+//			System.out.println("드라이버 로딩 실패:" + e);
+//		}
+//		
+//		return connection;
+//	}	
 	
 	
 }

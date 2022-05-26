@@ -15,7 +15,7 @@ public class UserRepository {
 		PreparedStatement pstmt = null;
 		
 		try {
-			connection = getConnection();
+			connection = new MyConnection().getConnection();
 			
 			String sql ="insert into user values(null,?,?,?,?,now());";
 			pstmt = connection.prepareStatement(sql);
@@ -45,19 +45,7 @@ public class UserRepository {
 		return result;		
 	}
 	
-	private Connection getConnection() throws SQLException {
-		Connection connection = null;
-		
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mysql://192.168.10.33:3306/webdb?charset=utf8";
-			connection = DriverManager.getConnection(url, "webdb", "webdb");
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
-		}
-		
-		return connection;
-	}
+
 
 	public UserVo findByEmailAndPassword(UserVo vo) {
 		UserVo result = null;
@@ -67,7 +55,7 @@ public class UserRepository {
 		ResultSet rs = null;
 				
 		try {
-			conn = getConnection();
+			conn = new MyConnection().getConnection();
 			
 			String sql =
 				"select no, name" +
@@ -118,7 +106,7 @@ public class UserRepository {
 		ResultSet rs = null;
 				
 		try {
-			conn = getConnection();
+			conn = new MyConnection().getConnection();
 			
 			String sql ="select no,name,email,gender from user where no=?;";
 			pstmt = conn.prepareStatement(sql);
@@ -166,21 +154,29 @@ public class UserRepository {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		String sql="";
+		String passwordCheck="";
 		try {
-			connection = getConnection();
+			connection = new MyConnection().getConnection();
 			if("".equals(vo.getPassword())) {
 				sql ="update user set name=?, email=?, gender=? where no=?";
+				passwordCheck="noPasswordInput";
 			}else {
 				sql ="update user set name=?, email=?, gender=?,password=? where no=?";
 			}
 			pstmt = connection.prepareStatement(sql);
 
+			if("noPasswordInput".equals(passwordCheck)) {
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getEmail());
+				pstmt.setString(3, vo.getGender());
+				pstmt.setLong(4, vo.getNo());
+			}else {
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getGender());
 			pstmt.setString(4, vo.getPassword());
 			pstmt.setLong(5, vo.getNo());
-	
+			}
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 		} catch (SQLException e) {
@@ -200,6 +196,21 @@ public class UserRepository {
 		
 		return result;	
 	}
+	
+//	private Connection getConnection() throws SQLException {
+//		Connection connection = null;
+//		
+//		try {
+//			Class.forName("org.mariadb.jdbc.Driver");
+//			String url = "jdbc:mysql://192.168.35.153:3306/webdb?charset=utf8";
+//			connection = DriverManager.getConnection(url, "webdb", "webdb");
+//		} catch (ClassNotFoundException e) {
+//			System.out.println("드라이버 로딩 실패:" + e);
+//		}
+//		
+//		return connection;
+//	}
+	
 	
 	
 }
