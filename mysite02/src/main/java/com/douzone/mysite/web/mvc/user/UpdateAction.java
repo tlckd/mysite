@@ -32,11 +32,9 @@ public class UpdateAction implements Action {
 		}
 		
 		Long no = userVo.getNo();
-		String password = userVo.getPassword();
+
 		String name =request.getParameter("name");
-		if(!"null".equals(request.getParameter("password"))) {
-		password = request.getParameter("password");
-		}
+		String password = request.getParameter("password");
 		String gender = request.getParameter("gender");
 		
 		userVo.setName(name);

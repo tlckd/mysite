@@ -165,11 +165,14 @@ public class UserRepository {
 		boolean result = false;
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		
+		String sql="";
 		try {
 			connection = getConnection();
-			
-			String sql ="update user set name=?, email=?, gender=?,password=? where no=?";
+			if("".equals(vo.getPassword())) {
+				sql ="update user set name=?, email=?, gender=? where no=?";
+			}else {
+				sql ="update user set name=?, email=?, gender=?,password=? where no=?";
+			}
 			pstmt = connection.prepareStatement(sql);
 
 			pstmt.setString(1, vo.getName());
