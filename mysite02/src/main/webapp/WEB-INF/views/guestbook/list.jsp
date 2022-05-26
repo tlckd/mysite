@@ -47,9 +47,11 @@
 							<tr>
 								<td colspan=4>
 								<% 
-									String message =vo.getMessage().replaceAll("\n", "<br/>");
-									message.replaceAll("<","&lt;");
-									message.replaceAll(">","&gt;");
+									String message =vo.getMessage();
+									message = message.replaceAll("<","&lt;");
+									message = message.replaceAll(">","&gt;");
+									message =vo.getMessage().replaceAll("\n", "<br/>");
+
 									//message.replaceAll("\n", "<br/>");
 								%>
 								<%=message%>	
