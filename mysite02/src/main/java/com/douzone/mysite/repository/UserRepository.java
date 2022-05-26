@@ -108,6 +108,95 @@ public class UserRepository {
 		
 		return result;
 	}
+
+	public UserVo findByNo(Long no) {
+		
+		UserVo result = null;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
+		try {
+			conn = getConnection();
+			
+			String sql ="select no,name,email,gender from user where no=?;";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				no = rs.getLong(1);
+				String name = rs.getString(2);
+				String email = rs.getString(3);
+				String gender = rs.getString(4);
+				result = new UserVo();
+				result.setNo(no);
+				result.setName(name);
+				result.setEmail(email);
+				result.setGender(gender);
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	public boolean update(UserVo vo) {
+		
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			connection = getConnection();
+			
+			String sql ="update user set name=?, email=?, gender=?,password=? where no=?";
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getEmail());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setString(4, vo.getPassword());
+			pstmt.setLong(5, vo.getNo());
+	
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;	
+	}
 	
 	
 }

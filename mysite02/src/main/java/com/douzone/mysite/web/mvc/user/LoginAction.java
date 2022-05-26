@@ -33,7 +33,6 @@ public class LoginAction implements Action {
 		}
 		
 		/* 로그인 처리 */
-		System.out.println("로그인 성공");
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		

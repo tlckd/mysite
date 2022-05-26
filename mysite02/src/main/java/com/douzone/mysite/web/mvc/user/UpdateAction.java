@@ -12,29 +12,49 @@ import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.WebUtil;
 
-public class UpdateFormAction implements Action {
+public class UpdateAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
 		
 		if(session==null) { // ACL 접근제어 리턴 잊지말기 
 			WebUtil.redirect(request, response, request.getContextPath());
 			return;
 		}
 		
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		UserVo userVo=(UserVo)session.getAttribute("userVo");
+		UserVo authVo=(UserVo)session.getAttribute("authUser");
 		
-		if(authUser ==null) {
+		if(userVo ==null) {
 			WebUtil.redirect(request, response, request.getContextPath());
 			return;
 		}
 		
-		UserVo userVo =new UserRepository().findByNo(authUser.getNo());
-		session.setAttribute("userVo", userVo);
+		Long no = userVo.getNo();
+		String password = userVo.getPassword();
+		String name =request.getParameter("name");
+		if(!"null".equals(request.getParameter("password"))) {
+		password = request.getParameter("password");
+		}
+		String gender = request.getParameter("gender");
 		
-		WebUtil.forward(request, response, "user/updateform");
-
+		userVo.setName(name);
+		userVo.setPassword(password);
+		userVo.setGender(gender);
+		new UserRepository().update(userVo);
+		
+		authVo.setName(name);
+		
+		session.setAttribute("userVo", userVo);
+		session.setAttribute("authUser", authVo);
+		
+		WebUtil.redirect(request, response, request.getContextPath()+"/user?a=updateform");
+		
+		
+		
+		
+		
 	}
 
 }
