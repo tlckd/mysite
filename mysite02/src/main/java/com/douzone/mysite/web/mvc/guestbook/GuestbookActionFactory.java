@@ -10,7 +10,7 @@ public class GuestbookActionFactory extends ActionFactory {
 	public Action getAction(String actionName) {
 		Action action= null;
 
-		if("listform".equals(actionName)) {
+		if("indexform".equals(actionName)) {
 			action=new IndexAction();
 		}else if("add".equals(actionName)){
 			action = new AddAction();

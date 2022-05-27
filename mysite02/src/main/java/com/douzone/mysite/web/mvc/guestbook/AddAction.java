@@ -26,7 +26,7 @@ public class AddAction implements Action {
 		
 		new GuestBookRepository().insert(vo);
 
-		response.sendRedirect(request.getContextPath()+"/guestbook?a=listform");
+		response.sendRedirect(request.getContextPath()+"/guestbook?a=indexform");
 		
 	}
 
