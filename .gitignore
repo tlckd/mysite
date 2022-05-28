@@ -9,5 +9,9 @@
 ## STS/Eclipse IDE 
 **/.settings
 **/.classpath 
-**/.project 
+**/.project
+
+## IntelliJ IDEA
+**/.idea
+*.iml
 
