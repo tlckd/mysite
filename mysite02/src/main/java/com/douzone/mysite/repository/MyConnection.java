@@ -9,7 +9,7 @@ public class MyConnection {
 	
 	public Connection getConnection() throws SQLException {
 		Connection connection = null;
-		String ip = "192.168.10.33:3306";
+		String ip = "192.168.35.153:3306";
 		String schema="webdb";
 		String id="webdb";
 		String password="webdb";
