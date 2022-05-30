@@ -14,7 +14,7 @@ public class DefaultAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		WebUtil.forward(request, response,"main/index");
-
+		//WebUtil.forward(null, response,"main/index");
 	}
 
 }
