@@ -122,7 +122,7 @@ public class BoardRepository {
 		return result;		
 	}
 	
-	public List<BoardVo> findAll() {
+	public List<BoardVo> findAll(Long page) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -132,10 +132,15 @@ public class BoardRepository {
 			connection = new MyConnection().getConnection();
 			
 			//3. SQL 준비
-			String sql ="select a.no,title,contents,hit,date_format(reg_date, '%Y-%m-%d %H:%i:%s'),g_no,o_no,depth,a.user_no,b.name from board a, user b where a.user_no = b.no order by g_no desc , o_no asc;";
+			String sql ="select a.no,title,contents,hit,date_format(reg_date, '%Y-%m-%d %H:%i:%s'),g_no,o_no,depth,a.user_no,b.name"
+					+ " from board a, user b \r\n"
+					+ " where a.user_no = b.no \r\n"
+					+ " order by g_no desc , o_no asc\r\n"
+					+ " limit ?,5;";
 			pstmt = connection.prepareStatement(sql);
 			
 			//4. Parameter Mapping
+			pstmt.setLong(1, (page-1)*5);
 			
 			//5. SQL 실행
 			rs = pstmt.executeQuery();
@@ -197,7 +202,7 @@ public class BoardRepository {
 			connection = new MyConnection().getConnection();
 			
 			//3. SQL 준비
-			String sql ="select no,title,contents,hit from board where no=?";
+			String sql ="select no,title,contents,hit,user_no  from board where no=?";
 			pstmt = connection.prepareStatement(sql);
 			
 			//4. Parameter Mapping
@@ -212,12 +217,14 @@ public class BoardRepository {
 				String title = rs.getString(2);
 				String contents = rs.getString(3);
 				Long hit = rs.getLong(4);
+				Long userNo = rs.getLong(5);
 				
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setContents(contents);
 				vo.setHit(hit);
-	
+				vo.setUserNo(userNo);
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
@@ -360,5 +367,38 @@ public class BoardRepository {
 		return result;		
 	}
 	
-	
+	public boolean contentsModify(BoardVo vo) {
+		boolean result = false;
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			connection = new MyConnection().getConnection();
+			
+			String sql ="update board set title=?, contents=? where no=?";
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			pstmt.setLong(3, vo.getNo());
+			
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;		
+	}
 }
