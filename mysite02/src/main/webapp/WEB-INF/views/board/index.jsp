@@ -34,10 +34,10 @@
 						<td>${count-status.index}</td>
 						
 						<td style="text-align: left; padding-left:${vo.depth*10}px">
-							<c:if test="vo.depth !=0">
+							<c:if test="${vo.depth !=1 }">
 								<img src="${pageContext.servletContext.contextPath}/assets/images/reply.png">
 							</c:if>
-							<a href="${pageContext.request.contextPath}/board?a=viewform&no="${vo.no}> ${vo.title}</a>
+							<a href="${pageContext.request.contextPath}/board?a=viewform&boardno=${vo.no}"> ${vo.title}</a>
 						</td>
 						
 						<td>${vo.name }</td>
@@ -46,7 +46,7 @@
 						
 						<td>${vo.regDate }</td>
 						<c:if test="${not empty authUser and (authUser.no == vo.userNo)}">
-							<td><a href="" class="del">삭제</a></td>
+							<td><a href="${pageContext.request.contextPath}/board?a=delete&boardno=${vo.no}" class="del">삭제</a></td>
 						</c:if>
 					</tr>
 					</c:forEach>				

@@ -30,14 +30,25 @@ public class WriteAction implements Action {
 		
 		String title = request.getParameter("title"); 
 		String content = request.getParameter("content");
+		String boardNo = request.getParameter("boardno");
+		
 		
 		BoardVo vo = new BoardVo();
 		vo.setTitle(title);
 		vo.setContents(content);
+		
 		if(authUser.getNo() !=null) {
 			vo.setUserNo(authUser.getNo());
 		}
-		new BoardRepository().insert(vo);
+		
+		if("".equals(boardNo)) {
+			new BoardRepository().insert(vo);
+		}else {
+			vo.setNo(Long.parseLong(boardNo));
+			vo=new BoardRepository().findCurrentG_noO_noDepth(vo);
+			new BoardRepository().insertReplyUpdate(vo);
+			new BoardRepository().insertReply(vo);
+		}
 		
 		response.sendRedirect(request.getContextPath()+"/board");
 		
