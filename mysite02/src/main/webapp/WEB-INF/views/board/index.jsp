@@ -81,7 +81,7 @@
 							</c:otherwise>
 						</c:choose>
 						
-						
+						<!--  
 						<c:choose>
 							<c:when test="${startpage+1 == currentPage}">
 								<li class="selected">${startpage+1 }</a></li>
@@ -90,13 +90,14 @@
 								<li><a href="${pageContext.servletContext.contextPath }/board?p=${startpage+1}">${startpage+1 }</a></li>
 							</c:otherwise>
 						</c:choose>
-						
+						-->
 								
 						
-						<li><a href="">${startpage+2 }</a></li>
+						<!--  <li><a href="">${startpage+2 }</a></li> -->
+						<!-- 
 						<li>${startpage+3 }</li>
 						<li>${startpage+4 }</li>
-						
+						-->
 						<li><a href="${pageContext.servletContext.contextPath }/board?p=${currentPage+1}">▶</a></li>
 
 					</ul>
