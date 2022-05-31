@@ -5,6 +5,11 @@ insert into board values(null,'테스트타이틀1','테스트내용',0,now(),(s
 
 select ifnull(max(g_no),0)+1 from board; 
 
+select no,title, g_no, o_no, depth 
+from board
+where no=1;
+
+
 SELECT * FROM webdb.board;
 
 select a.no,title,contents,hit,date_format(reg_date, '%Y-%m-%d %H:%i:%s'),g_no,o_no,depth,a.user_no,b.name 
@@ -13,3 +18,5 @@ where a.user_no = b.no
 order by g_no desc , o_no asc;
 
 select a.no,title,contents,hit,date_format(reg_date, '%Y-%m-%d %H:%i:%s'),g_no,o_no,depth,a.user_no,b.name from board a, user b where a.user_no = b.no order by g_no desc , o_no asc;
+
+select no,title,contents from board where no=4;
