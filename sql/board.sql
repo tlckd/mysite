@@ -22,4 +22,19 @@ select no,title,contents from board where no=4;
 
 delete from board where no=1;
 
-update board set hit=?+1 where g_no=1
+update board set hit=?+1 where g_no=1;
+
+select no,title,contents,hit,user_no 
+from board 
+where no=1;
+
+select a.no,title,contents,hit,date_format(reg_date, '%Y-%m-%d %H:%i:%s'),g_no,o_no,depth,a.user_no,b.name 
+from board a, user b 
+where a.user_no = b.no 
+order by g_no desc , o_no asc;
+
+select a.no,title,contents,hit,date_format(reg_date, '%Y-%m-%d %H:%i:%s'),g_no,o_no,depth,a.user_no,b.name 
+from board a, user b 
+where a.user_no = b.no 
+order by g_no desc , o_no asc
+limit (1-1)*5,5;
