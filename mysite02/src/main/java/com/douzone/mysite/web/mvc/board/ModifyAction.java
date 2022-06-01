@@ -26,7 +26,7 @@ public class ModifyAction implements Action {
 		
 		new BoardRepository().contentsModify(vo);
 		
-		response.sendRedirect(request.getContextPath()+"/board");
+		response.sendRedirect(request.getContextPath()+"/board?p=1");
 		
 	}
 

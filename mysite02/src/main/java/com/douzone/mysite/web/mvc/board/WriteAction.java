@@ -31,8 +31,7 @@ public class WriteAction implements Action {
 		String title = request.getParameter("title"); 
 		String content = request.getParameter("content");
 		String boardNo = request.getParameter("boardno");
-		
-		
+
 		BoardVo vo = new BoardVo();
 		vo.setTitle(title);
 		vo.setContents(content);
@@ -50,7 +49,7 @@ public class WriteAction implements Action {
 			new BoardRepository().insertReply(vo);
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/board");
+		response.sendRedirect(request.getContextPath()+"/board?p=1");
 		
 		
 	}

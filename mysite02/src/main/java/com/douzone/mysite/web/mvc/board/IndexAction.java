@@ -19,12 +19,19 @@ public class IndexAction implements Action{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page=request.getParameter("p");
+		String kwd=request.getParameter("kwd");
 
 		if(page== null) {
 			page="1";
 		}
+		if(kwd==null) {
+			kwd="";
+		}
 		
-		List <BoardVo> boardList = new BoardRepository().findAll(Long.parseLong(page));
+		List <BoardVo> boardList = new BoardRepository().findAll(Long.parseLong(page),kwd);
+		BoardVo vo = new BoardVo();
+		vo = new BoardRepository().findBoardCount(vo,kwd);
+		request.setAttribute("boardCount",vo.getBoardCount());
 		request.setAttribute("boardList", boardList);
 		WebUtil.forward(request, response, "board/index");
 		

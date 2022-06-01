@@ -11,7 +11,16 @@ public class BoardVo {
 	private Long depth;
 	private Long userNo;
 	private String name;
-	
+	private Long boardCount;
+
+
+
+	public Long getBoardCount() {
+		return boardCount;
+	}
+	public void setBoardCount(Long borderCount) {
+		this.boardCount = borderCount;
+	}
 	public Long getNo() {
 		return no;
 	}

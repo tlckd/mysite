@@ -36,7 +36,7 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board">글목록</a>
+					<a href="javascript:history.back();">글목록</a>
 					<c:if test="${not empty authUser and (authUser.no == vo.userNo)}">
 						<a href="${pageContext.request.contextPath}/board?a=modifyform&boardno=${vo.no}">글수정</a>
 					</c:if>

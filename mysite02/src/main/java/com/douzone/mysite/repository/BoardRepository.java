@@ -122,7 +122,7 @@ public class BoardRepository {
 		return result;		
 	}
 	
-	public List<BoardVo> findAll(Long page) {
+	public List<BoardVo> findAll(Long page,String kwd) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -133,15 +133,18 @@ public class BoardRepository {
 			
 			//3. SQL 준비
 			String sql ="select a.no,title,contents,hit,date_format(reg_date, '%Y-%m-%d %H:%i:%s'),g_no,o_no,depth,a.user_no,b.name"
-					+ " from board a, user b \r\n"
-					+ " where a.user_no = b.no \r\n"
-					+ " order by g_no desc , o_no asc\r\n"
+					+ " from board a, user b"
+					+ " where a.user_no = b.no and (title like ? or contents like ?)"
+					+ " order by g_no desc , o_no asc"
 					+ " limit ?,5;";
 			pstmt = connection.prepareStatement(sql);
 			
 			//4. Parameter Mapping
-			pstmt.setLong(1, (page-1)*5);
-			
+			pstmt.setString(1, "%"+kwd+"%");
+			pstmt.setString(2, "%"+kwd+"%");
+			pstmt.setLong(3, (page-1)*5);
+
+
 			//5. SQL 실행
 			rs = pstmt.executeQuery();
 			
@@ -401,4 +404,50 @@ public class BoardRepository {
 		
 		return result;		
 	}
+
+	public BoardVo findBoardCount(BoardVo vo,String kwd) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			connection = new MyConnection().getConnection();
+
+			//3. SQL 준비
+			String sql ="select count(*) from (select * from board where title like ? or contents like ?) a ;";
+			pstmt = connection.prepareStatement(sql);
+
+			//4. Parameter Mapping
+			pstmt.setString(1, "%"+kwd+"%");
+			pstmt.setString(2, "%"+kwd+"%");
+			//5. SQL 실행
+			rs = pstmt.executeQuery();
+
+			//6. 결과처리
+			while(rs.next()) {
+				Long boardCount = rs.getLong(1);
+				vo.setBoardCount(boardCount);
+
+			}
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return vo;
+	}
+
 }

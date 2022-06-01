@@ -33,7 +33,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath }/board">취소</a>
+						<a href="javascript:history.back();">취소</a>
 						<input type="submit" value="수정">
 					</div>
 				</form>				
