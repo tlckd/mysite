@@ -74,7 +74,6 @@ public class UserController {
 		Long no = authUser.getNo();
 		UserVo userVo = userService.getUser(no);
 		//System.out.println(userVo);
-		System.out.println(userVo);
 		model.addAttribute("userVo",userVo);
 		
 		return "user/update";
@@ -82,7 +81,6 @@ public class UserController {
 	
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public String update(HttpSession session,UserVo vo) {
-		System.out.println(vo);
 		// 접근제어(Access Control)
 				UserVo authUser = (UserVo) session.getAttribute("authUser");
 				if(authUser == null) {
