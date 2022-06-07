@@ -61,7 +61,7 @@ public class UserRepository {
 			conn = new MyConnection().getConnection();
 			
 			String sql =
-				"select no, name, email" +
+				"select no, name" +
 				"  from user" +
 				" where email=?" +
 				"   and password=?";
@@ -74,12 +74,11 @@ public class UserRepository {
 			if(rs.next()) {
 				Long no = rs.getLong(1);
 				String name = rs.getString(2);
-				String email = rs.getString(3);
 				
 				result = new UserVo();
 				result.setNo(no);
 				result.setName(name);
-				result.setEmail(email);
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -163,24 +162,22 @@ public class UserRepository {
 		try {
 			connection = new MyConnection().getConnection();
 			if("".equals(vo.getPassword())) {
-				sql ="update user set name=?, email=?, gender=? where no=?";
+				sql ="update user set name=?, gender=? where no=?";
 				passwordCheck="noPasswordInput";
 			}else {
-				sql ="update user set name=?, email=?, gender=?,password=? where no=?";
+				sql ="update user set name=?, gender=?,password=? where no=?";
 			}
 			pstmt = connection.prepareStatement(sql);
-
+			
 			if("noPasswordInput".equals(passwordCheck)) {
 				pstmt.setString(1, vo.getName());
-				pstmt.setString(2, vo.getEmail());
-				pstmt.setString(3, vo.getGender());
-				pstmt.setLong(4, vo.getNo());
+				pstmt.setString(2, vo.getGender());
+				pstmt.setLong(3, vo.getNo());
 			}else {
 			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getEmail());
-			pstmt.setString(3, vo.getGender());
-			pstmt.setString(4, vo.getPassword());
-			pstmt.setLong(5, vo.getNo());
+			pstmt.setString(2, vo.getGender());
+			pstmt.setString(3, vo.getPassword());
+			pstmt.setLong(4, vo.getNo());
 			}
 			int count = pstmt.executeUpdate();
 			result = count == 1;
