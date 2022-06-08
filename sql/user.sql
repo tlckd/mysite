@@ -15,3 +15,10 @@ select no,name,email,gender from user where no=2;
 
 -- update
 update user set name='asas', email='asas@asas.com', gender='female',password='asas' where no=2;
+
+select no,name,email 
+from user
+where email='ss' and password='ss';
+
+select * 
+from user;
