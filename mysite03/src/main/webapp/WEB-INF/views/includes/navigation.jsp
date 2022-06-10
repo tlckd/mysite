@@ -7,7 +7,7 @@
 			<ul>
 				<li><a href="${pageContext.request.contextPath}">최시창</a></li>
 				<li><a href="${pageContext.request.contextPath}/guestbook">방명록</a></li>
-				<li><a href="${pageContext.request.contextPath}/board?p=1">게시판</a></li>
+				<li><a href="${pageContext.request.contextPath}/board">게시판</a></li>
 				<li><a href="${pageContext.request.contextPath}/gallery">갤러리</a></li>
 			</ul>
 	</div>

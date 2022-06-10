@@ -12,8 +12,25 @@ public class BoardVo {
 	private Long userNo;
 	private String name;
 	private Long boardCount;
+	private Long page;
+	private String kwd;
+	
+	
 
 
+	public String getKwd() {
+		return kwd;
+	}
+	public void setKwd(String kwd) {
+		this.kwd = kwd;
+	}
+	
+	public Long getPage() {
+		return page;
+	}
+	public void setPage(Long page) {
+		this.page = page;
+	}
 
 	public Long getBoardCount() {
 		return boardCount;

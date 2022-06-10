@@ -10,14 +10,14 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
-
-<c:set var="kwd" value="${param.kwd==null?'':param.kwd}"/>
-
+<c:set var="myBoardlist" value="${boardList}"></c:set>
 <c:set var="count" value='${boardCount}'></c:set>
-<c:set var="currentPage" value='${param.p==null?1:param.p}'></c:set>
-<c:set var="currentPage" value='${param.p>pageCount?pageCount:param.p}'></c:set>
-<c:set var="currentPage" value='${param.p<1?1:param.p}'></c:set>
 
+<c:set var="kwd" value="${kwd}"/>
+
+<c:set var="currentPage" value='${page}'></c:set>
+<c:set var="currentPage" value='${currentPage>pageCount?pageCount:currentPage}'></c:set>
+<c:set var="currentPage" value='${currentPage<1?1:currentPage}'></c:set>
 
 <fmt:parseNumber var="startpage" integerOnly="true" value="${(currentPage/5)*5}"></fmt:parseNumber>
 <fmt:parseNumber var="startpage" integerOnly="true" value="${startpage<1?1:startpage}"></fmt:parseNumber>
@@ -27,7 +27,7 @@
 <fmt:parseNumber var="pageCount" integerOnly="true" value="${count/5}"></fmt:parseNumber>
 <fmt:parseNumber var="pageCount" integerOnly="true" value="${count%5==0?pageCount:pageCount+1}"></fmt:parseNumber>
 
-<c:set var="myBoardlist" value="${boardList}"></c:set>
+
 
 <body>
 	<div id="container">
@@ -57,7 +57,7 @@
 							<c:if test="${vo.depth !=1 }">
 								<img src="${pageContext.servletContext.contextPath}/assets/images/reply.png">
 							</c:if>
-							<a href="${pageContext.request.contextPath}/board?a=viewform&boardno=${vo.no}"> ${vo.title}</a>
+							<a href="${pageContext.request.contextPath}/board/view/${vo.no}"> ${vo.title}</a>
 						</td>
 						
 						<td>${vo.name }</td>
@@ -66,7 +66,8 @@
 						
 						<td>${vo.regDate }</td>
 						<c:if test="${not empty authUser and (authUser.no == vo.userNo)}">
-							<td><a href="${pageContext.request.contextPath}/board?a=delete&boardno=${vo.no}" class="del">삭제</a></td>
+							<td><a href="${pageContext.request.contextPath}/board?a=delete&
+=${vo.no}" class="del">삭제</a></td>
 						</c:if>
 					</tr>
 					</c:forEach>				
@@ -75,7 +76,7 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="${pageContext.request.contextPath}/board?p=1"&kwd=${kwd}>처음</a></li>
+						<li><a href="${pageContext.request.contextPath}/board?p=1&kwd=${kwd}">처음</a></li>
 
 						<c:if test="${currentPage>1}">
 							<li><a href="${pageContext.request.contextPath}/board?p=${currentPage-1}&kwd=${kwd}">◀</a></li>
@@ -106,7 +107,7 @@
 				
 				<div class="bottom">
 					<c:if test="${not empty authUser}">
-						<a href="${pageContext.request.contextPath}/board?a=writeform" id="new-book">글쓰기</a>
+						<a href="${pageContext.request.contextPath}/board/write" id="new-book">글쓰기</a>
 					</c:if>
 				</div>				
 			</div>

@@ -1,7 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-	<select id="totalCount">
+
+
+	<select id="findAll" parameterType="boardvo" resultType="boardvo">
+		<![CDATA[
 		
+					select a.no as no, title, contents, hit, date_format(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date, g_no,o_no,depth, a.user_no as user_no, b.name as name
+					 from board a, user b
+					 where a.user_no = b.no and (title like #{kwd} or contents like #{kwd})
+					 order by g_no desc , o_no asc
+					 limit #{page},5
+		]]>
 	</select>
+	
+	<select id="findViewContents" parameterType="boardvo" resultType="boardvo">
+		<![CDATA[
+		
+					select no,title,contents,hit,user_no  from board where no=#{no}
+		]]>
+	</select>
+	
+	<select id="findCurrentG_noO_noDepth" parameterType="boardvo" resultType="boardvo">
+		<![CDATA[
+		
+					select no, g_no, o_no, depth from board where no=#{no}
+		]]>
+	</select>
+	
+	
+	
+	<insert id="insert" parameterType="boardvo">
+		<![CDATA[
+			insert into board 
+		 	 values(null,#{title},#{contents},0,now(),(select ifnull(max(g_no),0)+1 from board b),1,1,#{userNo})
+		]]>
+	</insert>
+	
+	<update id="insertReplyUpdate" parameterType="boardvo">
+		<![CDATA[
+			update board set o_no=#{oNo}+1 where g_no=#{gNo} and o_no>=#{oNo}+1;
+		]]>
+	</update>
+	
+	<insert id="insertReply" parameterType="boardvo">
+		<![CDATA[
+			insert into board values(null,#{title},#{contents},0,now(),#{gNo},#{oNo}+1,#{depth}+1,#{userNo});
+		]]>
+	</insert>
+	
+	
+	<delete id="deleteBoard" parameterType="boardvo">
+		<![CDATA[
+			delete from board where no=#{no}
+		]]>
+	</delete>
+	
+	<update id="hitUpdate" parameterType="boardvo">
+		<![CDATA[
+			update board set hit=hit+1 where no=#{no}
+		]]>
+	</update>
+	
+	
+	<update id="contentsModify" parameterType="boardvo">
+		<![CDATA[
+			update board set title=#{title}, contents=#{contents} where no=#{no}
+		]]>
+	</update>
+	
+	<select id="findBoardCount" parameterType="boardvo" resultType="long">
+		<![CDATA[
+			select count(*) as boardCount from (select * from board where title like #{kwd} or contents like #{kwd}) as a ;
+		]]>
+	</select>
+	
+	
 </mapper>

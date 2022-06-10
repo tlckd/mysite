@@ -12,7 +12,9 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-
+	<!--Auto Proxy-->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
 	<!-- oracle datasource -->
   	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
@@ -35,7 +37,7 @@
 	
 	<context:annotation-config />
 
-	<context:component-scan base-package="com.douzone.mysite.service, com.douzone.mysite.repository">
+	<context:component-scan base-package="com.douzone.mysite.aspect,com.douzone.mysite.service, com.douzone.mysite.repository">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component" />

@@ -41,7 +41,7 @@
 						<a href="${pageContext.request.contextPath}/board?a=modifyform&boardno=${vo.no}">글수정</a>
 					</c:if>
 					<c:if test="${not empty authUser}">
-						<a href="${pageContext.request.contextPath}/board?a=writeform&boardno=${vo.no}">답글달기</a>
+						<a href="${pageContext.request.contextPath}/board/write/${vo.no}">답글달기</a>
 					</c:if>
 				</div>
 			</div>
