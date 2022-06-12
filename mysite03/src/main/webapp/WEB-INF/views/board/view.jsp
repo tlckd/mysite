@@ -37,11 +37,11 @@
 				</table>
 				<div class="bottom">
 					<a href="javascript:history.back();">글목록</a>
-					<c:if test="${not empty authUser and (authUser.no == vo.userNo)}">
-						<a href="${pageContext.request.contextPath}/board?a=modifyform&boardno=${vo.no}">글수정</a>
+					<c:if test="${authUser.no == vo.userNo}">
+						<a href="${pageContext.request.contextPath }/board/modify/${boardVo.no }?p=${param.p }&kwd=${param.kwd }">글수정</a>
 					</c:if>
 					<c:if test="${not empty authUser}">
-						<a href="${pageContext.request.contextPath}/board/write/${vo.no}">답글달기</a>
+						<a href="${pageContext.request.contextPath}/board/writeform?boardno=${vo.no}&p=${param.p}&kwd=${param.kwd}">답글달기</a>
 					</c:if>
 				</div>
 			</div>

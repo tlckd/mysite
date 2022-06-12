@@ -14,10 +14,11 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/write/${vo.no}">
-					<input type = "hidden" name = "a" value="write">
-					<input type = "hidden" name = "boardno" value="${vo.no}">
-
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/write/${param.boardno}">
+					<input type = "hidden" name = "boardno" value="${param.boardno}">
+					<input type = "hidden" name = "page" value="${param.p}">
+					<input type = "hidden" name = "kwd" value="${param.kwd}">
+					
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>

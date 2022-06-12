@@ -3,15 +3,40 @@
 <mapper namespace="board">
 
 
-	<select id="findAll" parameterType="boardvo" resultType="boardvo">
-		<![CDATA[
-		
-					select a.no as no, title, contents, hit, date_format(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date, g_no,o_no,depth, a.user_no as user_no, b.name as name
-					 from board a, user b
-					 where a.user_no = b.no and (title like #{kwd} or contents like #{kwd})
-					 order by g_no desc , o_no asc
-					 limit #{page},5
-		]]>
+	<select id="findAllByPageAndKeword" parameterType="map" resultType="boardvo">
+	<choose>
+			<when test="keyword == null or keyword == ''">
+				<![CDATA[
+				  select a.no,
+				  		 a.title,
+				  		 a.hit,
+				  		 date_format(a.reg_date, '%Y-%m-%d %p %h:%i:%s') as regDate,
+				  		 a.depth,
+				  		 b.name as userName,
+				  		 a.user_no as userNo
+					from board a, user b
+				   where a.user_no = b.no
+				order by g_no desc, o_no asc
+				   limit #{startIndex }, #{size }				
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				  select a.no,
+				  		 a.title,
+				  		 a.hit,
+				  		 date_format(a.reg_date, '%Y-%m-%d %p %h:%i:%s') as regDate,
+				  		 a.depth, 
+				  		 b.name as userName,
+				  		 a.user_no as userNo
+				  	from board a, user b
+				   where a.user_no = b.no
+				     and (title like '%${keyword }%' or contents like '%${keyword }%')
+				order by g_no desc, o_no asc
+				   limit #{startIndex }, #{size }				
+				]]>			
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="findViewContents" parameterType="boardvo" resultType="boardvo">
@@ -23,8 +48,18 @@
 	
 	<select id="findCurrentG_noO_noDepth" parameterType="boardvo" resultType="boardvo">
 		<![CDATA[
-		
-					select no, g_no, o_no, depth from board where no=#{no}
+					select a.no,
+				  		 a.title,
+				  		 a.contents,
+				  		 a.hit,
+				  		 date_format(a.reg_date, '%Y-%m-%d %p %h:%i:%s') as regDate,
+				  		 g_no as gNo,
+				  		 o_no as oNo,
+				  		 a.depth,
+				  		 b.name as userName,
+				  		 a.user_no as userNo
+					from board a, user b
+				   where a.user_no = b.no and a.no = #{no}
 		]]>
 	</select>
 	
@@ -50,9 +85,11 @@
 	</insert>
 	
 	
-	<delete id="deleteBoard" parameterType="boardvo">
+	<delete id="deleteBoard" parameterType="long">
 		<![CDATA[
-			delete from board where no=#{no}
+			delete 
+			 from board
+			 where no=#{no }
 		]]>
 	</delete>
 	
@@ -69,10 +106,21 @@
 		]]>
 	</update>
 	
-	<select id="findBoardCount" parameterType="boardvo" resultType="long">
-		<![CDATA[
-			select count(*) as boardCount from (select * from board where title like #{kwd} or contents like #{kwd}) as a ;
-		]]>
+	<select id="totalCount" parameterType="string" resultType="long">
+		<choose>
+			<when test="_parameter == null or _parameter == ''">
+				<![CDATA[
+				select count(*) from board
+				]]>				
+			</when>
+			<otherwise>
+				<![CDATA[
+				select count(*) 
+				  from board
+				 where (title like '%${_parameter }%' or contents like '%${_parameter  }%') 
+				]]>				
+			</otherwise>
+		</choose>	
 	</select>
 	
 	

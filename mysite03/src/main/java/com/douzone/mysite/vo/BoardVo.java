@@ -10,27 +10,10 @@ public class BoardVo {
 	private Long oNo;
 	private Long depth;
 	private Long userNo;
-	private String name;
+	private String userName;
 	private Long boardCount;
-	private Long page;
-	private String kwd;
-	
-	
 
-
-	public String getKwd() {
-		return kwd;
-	}
-	public void setKwd(String kwd) {
-		this.kwd = kwd;
-	}
 	
-	public Long getPage() {
-		return page;
-	}
-	public void setPage(Long page) {
-		this.page = page;
-	}
 
 	public Long getBoardCount() {
 		return boardCount;
@@ -92,13 +75,13 @@ public class BoardVo {
 	public void setUserNo(Long userNo) {
 		this.userNo = userNo;
 	}
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	
+
 	
 	
 	
