@@ -14,6 +14,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
+	
 		// 1. Handler 종류 확인
 		if(handler instanceof HandlerMethod == false) {
 			// DefaultServletHandler가 처리하는 정적 자원
@@ -28,6 +30,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		
 		// 4. Handler Method에 @Auth가 없으면  Type에 붙어 있는 지 확인
 		if(auth == null) {
+			auth = handlerMethod.hasMethodAnnotation(Auth.class);
 			/* 과제 */
 			// auth = handlerMethod
 		}
