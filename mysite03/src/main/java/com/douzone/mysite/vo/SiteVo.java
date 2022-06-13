@@ -5,7 +5,6 @@ public class SiteVo {
 	private String welcomeMessage;
 	private String profileURL;
 	private String description;
-	
 	public Long getNo() {
 		return no;
 	}
@@ -30,5 +29,9 @@ public class SiteVo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	@Override
+	public String toString() {
+		return "SiteVo [no=" + no + ", welcomeMessage=" + welcomeMessage + ", profileURL=" + profileURL
+				+ ", description=" + description + "]";
+	}
 }

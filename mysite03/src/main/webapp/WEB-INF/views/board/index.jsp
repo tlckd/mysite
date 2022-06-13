@@ -20,7 +20,7 @@
 				</form>
 				<table class="tbl-ex">
 					<tr>
-						<th>번호 </th>
+						<th>번호</th>
 						<th>제목</th>
 						<th>글쓴이</th>
 						<th>조회수</th>
@@ -31,8 +31,8 @@
 						<tr>
 							<td>${map.totalCount - (map.currentPage - 1)*map.listSize - status.index }</td>
 							<c:choose>
-								<c:when test="${vo.depth > 1 }">
-									<td class="left" style="text-align:left; padding-left:${10*vo.depth }px">
+								<c:when test="${vo.depth > 0 }">
+									<td class="left" style="text-align:left; padding-left:${20*vo.depth }px">
 										<img src="${pageContext.request.contextPath }/assets/images/reply.png">
 										<a href="${pageContext.request.contextPath }/board/view/${vo.no }?p=${map.currentPage }&kwd=${map.keyword }">${vo.title }</a>
 									</td>
@@ -85,7 +85,7 @@
 				</div>				
 				<div class="bottom">
 					<c:if test="${not empty authUser }">
-						<a href="${pageContext.request.contextPath }/board/writeform?p=${map.currentPage }&kwd=${map.keyword }" id="new-book">글쓰기</a>
+						<a href="${pageContext.request.contextPath }/board/write?p=${map.currentPage }&kwd=${map.keyword }" id="new-book">글쓰기</a>
 					</c:if>
 				</div>
 			</div>

@@ -4,7 +4,6 @@ public class GalleryVo {
 	private Long no;
 	private String url;
 	private String comments;
-	
 	public Long getNo() {
 		return no;
 	}
@@ -22,6 +21,10 @@ public class GalleryVo {
 	}
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	@Override
+	public String toString() {
+		return "GalleryVo [no=" + no + ", url=" + url + ", comments=" + comments + "]";
 	}
 	
 	

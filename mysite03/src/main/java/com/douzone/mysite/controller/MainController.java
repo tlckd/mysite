@@ -10,14 +10,12 @@ import com.douzone.mysite.vo.SiteVo;
 
 @Controller
 public class MainController {
-
 	@Autowired
 	private SiteService siteService;
 	
-	@RequestMapping({"/","/main"})
+	@RequestMapping({"/", "/main"})
 	public String index(Model model) {
 		SiteVo vo = siteService.getSite();
-		
 		model.addAttribute("site", vo);
 		return "main/index";
 	}

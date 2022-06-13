@@ -1,7 +1,6 @@
 package com.douzone.mysite.exception;
 
 public class GuestbookRepositoryException extends RuntimeException {
-
 	private static final long serialVersionUID = 1L;
 
 	public GuestbookRepositoryException(String message) {
@@ -9,7 +8,6 @@ public class GuestbookRepositoryException extends RuntimeException {
 	}
 	
 	public GuestbookRepositoryException() {
-		super();
+		super("GuestbookRepositoryException Occurs...");
 	}
-
 }
