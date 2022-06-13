@@ -50,8 +50,11 @@ public class BoardRepository {
 	}
 	
 
-	public int deleteBoard(Long boardNo) {
-		return sqlSession.delete("board.deleteBoard",boardNo);
+	public int deleteBoard(Long boardNo, Long no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardNo", boardNo);
+		map.put("no", no);
+		return sqlSession.delete("board.deleteBoard",map);
 	}
 	
 	public int hitUpdate(BoardVo vo) {

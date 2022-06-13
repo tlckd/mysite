@@ -30,7 +30,7 @@ public class BoardService {
 		long blockCount = (int) Math.ceil((double) pageCount / PAGE_SIZE);
 		long currentBlock = (int) Math.ceil((double) currentPage / PAGE_SIZE);
 
-		// 2. 파라미터 page 값 검증
+		// 2. 파라미터 page 값 검증, 사용자가 url로 범위 넘어가는거 넣었을때 처리 
 		if (currentPage > pageCount) {
 			currentPage = pageCount;
 			currentBlock = (int) Math.ceil((double) currentPage / PAGE_SIZE);
@@ -95,8 +95,8 @@ public class BoardService {
 		}
 
 
-	public void deleteContents(Long boardNo) {
-		boardRepository.deleteBoard(boardNo);
+	public void deleteContents(Long boardNo, Long no) {
+		boardRepository.deleteBoard(boardNo,no);
 		
 	}
 

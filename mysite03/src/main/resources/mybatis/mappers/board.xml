@@ -42,7 +42,7 @@
 	<select id="findViewContents" parameterType="boardvo" resultType="boardvo">
 		<![CDATA[
 		
-					select no,title,contents,hit,user_no  from board where no=#{no}
+					select no,title,contents,hit,user_no as userNo  from board where no=#{no}
 		]]>
 	</select>
 	
@@ -85,12 +85,13 @@
 	</insert>
 	
 	
-	<delete id="deleteBoard" parameterType="long">
+	<delete id="deleteBoard" parameterType="map">
 		<![CDATA[
-			delete 
-			 from board
-			 where no=#{no }
-		]]>
+		  delete
+		   from board 
+		   where no = #{no }
+		   and user_no = #{userNo }
+		]]>	
 	</delete>
 	
 	<update id="hitUpdate" parameterType="boardvo">

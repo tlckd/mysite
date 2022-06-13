@@ -24,9 +24,21 @@ public class UserService {
 	
 		return userRepository.findByNo(no);
 	}
-
+	
+	public UserVo getUser(String email, String password) {
+		UserVo vo = new UserVo();
+		vo.setEmail(email);
+		vo.setPassword(password);
+		
+		return getUser(vo);
+		// 기존에 있는애 쓰기 오버로드 했을때 수정할때 한곳만 수정하게 
+	}
+	
+	
 	public void updateUser(UserVo vo) {
 		userRepository.update(vo);
 		
 	}
+
+	
 }

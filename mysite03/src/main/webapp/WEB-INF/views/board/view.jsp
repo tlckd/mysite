@@ -37,7 +37,8 @@
 				</table>
 				<div class="bottom">
 					<a href="javascript:history.back();">글목록</a>
-					<c:if test="${authUser.no == vo.userNo}">
+					--${vo.userNo }--
+					<c:if test="${not empty authUser && authUser.no == vo.userNo}">
 						<a href="${pageContext.request.contextPath }/board/modify/${boardVo.no }?p=${param.p }&kwd=${param.kwd }">글수정</a>
 					</c:if>
 					<c:if test="${not empty authUser}">

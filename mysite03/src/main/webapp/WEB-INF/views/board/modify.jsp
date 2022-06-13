@@ -10,12 +10,12 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<c:set var="vo" value="${viewContents}"></c:set>
+	<c:set var="vo" value="${boardVo}"></c:set>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board?a=modify">
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/modify">
 					<input type = "hidden" name = "boardno" value="${param.boardno}">
 					<table class="tbl-ex">
 						<tr>
