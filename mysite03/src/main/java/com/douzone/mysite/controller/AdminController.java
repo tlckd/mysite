@@ -40,9 +40,11 @@ public class AdminController {
 		String url = fileUploadService.restoreImage(multipartFile);
 		vo.setProfileURL(url);
 		
-		// siteService.updateSite(vo);
+		siteService.updateSite(vo);
+		servletContext.setAttribute("site", vo);
 
-		return "redirect:/admin/main";
+		//return "redirect:/admin/main";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/guestbook")

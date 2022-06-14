@@ -42,6 +42,13 @@
 			<mvc:exclude-mapping path="/user/logout"/>
 			<bean class="com.douzone.mysite.security.AuthInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/user/auth"/>
+			<mvc:exclude-mapping path="/user/logout"/>
+			<bean class="com.douzone.mysite.interceptor.SiteInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
@@ -49,7 +56,19 @@
 
 	<!-- MVC Resource Mapping -->
 	<mvc:resources mapping="/assets/gallery/**" location="file:/mysite-uploads/"  />
+	
+	
+	<!-- Message Resource -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	   <property name="basenames">
+	      <list>
+			<value>messages/messages_ko</value>
+			<value>messages/messages_jp</value>
+	      </list>
+	   </property>
+	</bean>
 
+	
 	<!-- ViewResolver 설정 -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
