@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@PropertySource("classpath:com/douzone/mysite/config/app/jdbc.properites")
+@PropertySource("classpath:com/douzone/mysite/config/app/jdbc.properties")
 public class DBConfig {
 	
 	@Autowired
