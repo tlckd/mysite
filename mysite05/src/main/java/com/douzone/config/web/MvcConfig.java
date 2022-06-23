@@ -30,7 +30,7 @@ public class MvcConfig implements WebMvcConfigurer {
 //		configurer.enable();
 //	}
 	
-	@Override //리소스 매핑 ㄱㄱ 파일업로드에 썼던거
+	@Override 
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
 			.addResourceHandler("assets/**")
