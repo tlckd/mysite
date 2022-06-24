@@ -7,7 +7,7 @@ public class SpringBootInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return super.configure(builder);
+		return builder.sources(MySiteApplication.class); // 설정파일 넣어주면됨 
 	}
 
 	
