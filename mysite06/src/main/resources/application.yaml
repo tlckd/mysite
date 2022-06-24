@@ -57,6 +57,24 @@ server:
          enabled: true
 
 
-# logging configuration
-loggin:
-   config: classpath:logback.xml
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "/${spring.application.name}-logs/exception.%d{yyyy-MM-dd}.%i.log.zip"
+         max-file-size: 200MB
+         max-histroty: 10
+   file:
+      name: /${spring.application.name}-logs/exception.log      	
+   level:
+      root: INFO
+      com:
+         douzone:
+            mysite:
+               exception: ERROR   
+
+   
+   
+   
+   
