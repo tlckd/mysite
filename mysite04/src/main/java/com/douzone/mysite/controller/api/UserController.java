@@ -23,6 +23,4 @@ public class UserController {
 		UserVo userVo = userService.getUser(email);
 		return JSONResult.success(userVo != null); 
 	}
-
-	
 }

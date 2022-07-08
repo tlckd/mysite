@@ -29,10 +29,9 @@ public class GuestbookRepository {
 	
 	public boolean insert(GuestbookVo vo) {
 		
-		System.out.println(vo);
+
 		boolean result = sqlSession.insert("guestbook.insert", vo) == 1;
-		System.out.println(vo);
-		
+
 		
 		return result;
 	}
