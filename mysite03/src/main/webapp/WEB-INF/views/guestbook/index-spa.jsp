@@ -61,6 +61,8 @@ var fetch = function() {
 			response.data.forEach(function(vo){
 				render(vo, true);
 			});
+		},error: function(xhr, status, e){
+			console.error(status + ":" + e);
 		}		
 	});
 }
@@ -117,6 +119,8 @@ var add = $(function() {
 				
 				//form reset 
 				$("#add-form")[0].reset(); // 돔 api임 제이쿼리꺼아님 추가후 리셋해서 입력된 거 지움 ㅇㅇ
+			},error: function(xhr, status, e){
+				console.error(status + ":" + e);
 			}
 		});
 	});
@@ -130,7 +134,20 @@ var deleteContent = function(){
 			contentType: "application/x-www-form-urlencoded", 
 			data: "password=" + $("#password-delete").val(),  
 			success: function(response) {
-				console.log(response);
+				if(response.result != "success"){
+					console.error(response.message);
+					return;
+				}
+				
+				if(response.data != -1){
+					$("#list-guestbook li[data-no=" + response.data + "]").remove();
+					dialogDelete.dialog('close');
+					return;
+				}
+				console.log("들어왔는지 테스트 " + "password=" + $("#password-delete").val());
+				$("#dialog-delete-form p.validateTips.error").show();
+			},error: function(xhr, status, e){
+				console.error(status + ":" + e);
 			}
 		});
 }
@@ -151,7 +168,7 @@ $(function(){
 				console.log($("#hidden-no").val());
 				console.log("${pageContext.request.contextPath }/api/guestbook/"+$("#hidden-no").val());
 				deleteContent();
-				//$("#list-guestbook li[data-no='"+ response.data +"']").remove();
+				
 				//console.log("AJAX 삭제 하기");
 			},
 			"취소": function() {
@@ -160,6 +177,9 @@ $(function(){
 		},
 		close: function() {
 			//console.log("dialog close!!!");
+			$("#hidden-no").val("");
+			$("#password-delete").val("");
+			$("#dialog-delete-form p.validateTips.error").hide();
 			
 		}
 	});
@@ -173,9 +193,7 @@ $(function(){
 		
 		
 	});
-	// ...
 
-	fetch();
 });
 
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.mysite.dto.JSONResult;
@@ -39,14 +40,12 @@ public class GuestbookController {
 	}
 	
 	@DeleteMapping("/{no}")
-	public JSONResult delete(@PathVariable("no") Long no, String password) {
+	public JSONResult delete(@PathVariable("no") Long no,@RequestParam(value="password", required=true, defaultValue="") String password) {
 		
 		boolean result=guestbookService.deleteMessage(no, password);
-		int check=0; 
-		if(result==false) {
-			check=-1;
-		}
-		return JSONResult.success(check);
+		System.out.println("테스트1:"+no + ":"+password);
+		System.out.println("테스트2:"+result);
+		return JSONResult.success(result?no:-1);
 		
 	}
 	
